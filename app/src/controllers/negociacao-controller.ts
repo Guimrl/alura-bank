@@ -1,4 +1,5 @@
-import { domInjector } from '../decorators/../decorators/dom-injector.js';
+import { domInjector } from '../decorators/dom-injector.js';
+import { inspect } from '../decorators/inspect.js';
 import { logarTempoDeExecucao } from '../decorators/logar-tempo-de-execucao.js';
 import { DiasDaSemana } from '../enums/dias-da-semana.js';
 import { Negociacao } from '../models/negociacao.js';
@@ -24,6 +25,7 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
+    @inspect
     @logarTempoDeExecucao()
     public adiciona(): void {
         const negociacao = Negociacao.criaDe(
@@ -45,16 +47,19 @@ export class NegociacaoController {
     }
 
     public importaDados(): void {
-        this.negociacoesService.obterNegociacoesDoDia()
+        this.negociacoesService
+            .obterNegociacoesDoDia()
             .then(negociacoesDeHoje => {
                 return negociacoesDeHoje.filter(negociacaoDeHoje => {
                     return !this.negociacoes
-                    .lista()
-                    .some(negociacao => negociacao.ehIgual(negociacaoDeHoje))
+                        .lista()
+                        .some(negociacao => negociacao
+                            .ehIgual(negociacaoDeHoje)
+                        );
                 });
             })
             .then(negociacoesDeHoje => {
-                for (let negociacao of negociacoesDeHoje) {
+                for(let negociacao of negociacoesDeHoje) {
                     this.negociacoes.adiciona(negociacao);
                 }
                 this.negociacoesView.update(this.negociacoes);
