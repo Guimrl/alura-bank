@@ -1,6 +1,3 @@
-import { inspect } from "../decorators/inspect.js";
-import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
-
 export abstract class View<T> {
 
     protected elemento: HTMLElement;
@@ -10,7 +7,7 @@ export abstract class View<T> {
         if (elemento) {
             this.elemento = elemento as HTMLElement;
         } else {
-            throw Error(`Seletor ${seletor} não existe no DOM. Verifique`);
+            throw Error(`Seletor ${seletor} não existe no DOM. Verifique.`);
         }
     }
 
