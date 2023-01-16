@@ -5,7 +5,7 @@ export class View {
             this.elemento = elemento;
         }
         else {
-            throw Error(`Seletor ${seletor} não existe no DOM. Verifique`);
+            throw Error(`Seletor ${seletor} não existe no DOM. Verifique.`);
         }
     }
     update(model) {
@@ -13,3 +13,4 @@ export class View {
         this.elemento.innerHTML = template;
     }
 }
+//# sourceMappingURL=view.js.map
